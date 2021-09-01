@@ -11,7 +11,7 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT 
 const controller = require('./controller/controller')
 server.use(controller)
-const app = server.listen(443)
+const app = server.listen(5000)
 const io = socket(app)
 console.log("SERVER:", server)
 //OSC SERIAL PORT
@@ -41,7 +41,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     localAddress: "oscweb.herokuapp.com",
-    localPort: 443
+    localPort: 5000
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
