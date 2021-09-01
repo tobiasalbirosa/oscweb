@@ -8,9 +8,9 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 const controller = require('./controller/controller')
-const connection = app.use(controller).listen(PORT, HOST)
+const connection = app.use(controller).listen(443, HOST)
 const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
@@ -42,19 +42,18 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     address :  HOST,
-    localPort : PORT
+    localPort : 5000
 })
 udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
     var ipAddresses = getIPAddresses()
-    console.log("Listening for OSC over UDP.")
     ipAddresses.forEach(function (address) {
-        console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
+    console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
     })
 })
 udpPort.on("message", function (oscMessage) {
     io.emit('message', oscMessage)
 })
-udpPort.on("error", function (err) { console.log("error ON PORT UDP: ",err) })
+udpPort.on("error", function (err) { console.log("ERROR ON PORT UDP: ",err) })
 console.log("udpPort: ",udpPort)
