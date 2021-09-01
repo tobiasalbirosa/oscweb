@@ -42,9 +42,9 @@ var getIPAddresses = function () {
 //UDP PORT
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
-    localAddress: "127.0.0.1",
-    localPort: 8
+
 })
+udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
     var ipAddresses = getIPAddresses()
@@ -58,4 +58,4 @@ udpPort.on("message", function (oscMessage) {
 })
 udpPort.on("error", function (err) { console.log("error ON PORT UDP: ",err) })
 console.log("udpPort: ",udpPort)
-udpPort.open()
+
