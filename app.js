@@ -27,7 +27,7 @@ console.log("Connectado:", HOST, ':' ,PORT)
 
 
 var serialPort = new osc.SerialPort({
-    devicePath:  "/message"
+    devicePath:  "/udevadm'"
 })
 serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
 serialPort.open()
