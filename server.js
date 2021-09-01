@@ -12,6 +12,8 @@ const PORT = process.env.PORT
 
 const controller = require('./controller/controller')
 const io = socket(server.use(controller).listen(PORT))
+
+console.log("SERVER", server)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
     devicePath:  "/message"
@@ -24,7 +26,7 @@ var getIPAddresses = function () {
         ipAddresses = []
     for (var deviceName in interfaces) {
         var addresses = interfaces[deviceName]
-        console.log(addresses)
+        console.log("Addresses on get IP",addresses)
         for (var i = 0; i < addresses.length; i++) {
             var addressInfo = addresses[i]
             if (addressInfo.family === "IPv4" && !addressInfo.internal) {
@@ -45,7 +47,7 @@ udpPort.on("ready", function () {
     var ipAddresses = getIPAddresses();
     console.log("Listening for OSC over UDP.");
     ipAddresses.forEach(function (address) {
-        console.log(" Host:", address + ", Port:", udpPort.options.localPort)
+        console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
     })
 })
 udpPort.on("message", function (oscMessage) {
