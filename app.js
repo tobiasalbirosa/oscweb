@@ -6,12 +6,11 @@ const express = require('express')
 const SerialPort = require('serialport')
 
 
-  try {
-    const serialList = SerialPort.list()
-    console.log("serialList serialList ",serialList)
-  } catch (e) {
-    console.log(e)
-  }
+ SerialPort.list().then((res) => {
+    console.log(res)
+ }).catch((err) => {
+     console.log(err)
+ })
 
 
 //APP
