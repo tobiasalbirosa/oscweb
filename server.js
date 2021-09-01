@@ -9,11 +9,9 @@ server.engine('html', require('ejs').renderFile)
 server.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT
-
 const controller = require('./controller/controller')
-const io = socket(server.use(controller).listen(PORT))
-
-console.log("SERVER", server)
+const io = socket(server.use(controller).listen(443))
+console.log("SERVER:", server)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
     devicePath:  "/message"
@@ -40,7 +38,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     localAddress: "oscweb.herokuapp.com",
-    localPort: 5000
+    localPort: 443
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
