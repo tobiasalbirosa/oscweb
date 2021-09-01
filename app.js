@@ -10,12 +10,28 @@ app.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT || 3000
 const controller = require('./controller/controller')
+const path = require('path')
 const connection = app.use(controller).listen(3000)
 const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
+
+var SerialP = require("serialport");
+var port = "message";
+
+var serialP = new SerialP(port, {
+  baudRate: 9600
+})
+serialP.on("open", function() {
+  console.log("-- Connection opened --");
+  serialP.on("data", function(data) {
+    console.log("Data received: " + data);
+  })
+})
+
+
 var serialPort = new osc.SerialPort({
-    devicePath:  "udevadm'"
+    devicePath : 'message'
 })
 serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
 serialPort.open()
