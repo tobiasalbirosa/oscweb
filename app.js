@@ -3,7 +3,6 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
-
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
@@ -11,8 +10,9 @@ app.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 const controller = require('./controller/controller')
-const io = socket(app.use(controller).listen(PORT, HOST))
-
+const connection = app.use(controller).listen(PORT, HOST)
+const io = socket(connection)
+console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
     devicePath:  "/message"
@@ -29,9 +29,11 @@ var getIPAddresses = function () {
         console.log("Addresses on get IP",addresses)
         for (var i = 0; i < addresses.length; i++) {
             var addressInfo = addresses[i]
-          
+           
+            if (addressInfo.family === "eth0" && !addressInfo.internal) {
                 ipAddresses.push(addressInfo.address)
-            
+            }
+
         }
     }
     return ipAddresses
