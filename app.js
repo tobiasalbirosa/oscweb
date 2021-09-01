@@ -9,9 +9,7 @@ app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
 const controller = require('./controller/controller')
-
-
-const io = socket(app.use(controller).listen(5000))
+const io = socket(app.use(controller).listen())
 console.log("app:", app)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
@@ -25,7 +23,7 @@ var getIPAddresses = function () {
         interfaces = os.networkInterfaces(),
         ipAddresses = []
 
-        console.log(interfaces)
+        console.log("Interfaces",interfaces)
 
     for (var deviceName in interfaces) {
         var addresses = interfaces[deviceName]
@@ -41,9 +39,7 @@ var getIPAddresses = function () {
 }
 //UDP PORT
 console.log("HOST",HOST)
-var udpPort = new osc.UDPPort({
-
-})
+var udpPort = new osc.UDPPort({})
 udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
