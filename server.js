@@ -52,6 +52,6 @@ udpPort.on("ready", function () {
 udpPort.on("message", function (oscMessage) {
     io.emit('message', oscMessage)
 })
-udpPort.on("error", function (err) { console.log("error: ",err) })
+udpPort.on("error", function (err) { console.log("error ON PORT UDP: ",err) })
 console.log("udpPort: ",udpPort)
 udpPort.open()
