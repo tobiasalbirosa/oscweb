@@ -7,8 +7,8 @@ const express = require('express')
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-const HOST = process.env.HOST || "oscweb.herokuapp.com"
-const PORT = process.env.PORT || 3000
+const HOST = process.env.HOST
+const PORT = process.env.PORT
 const controller = require('./controller/controller')
 const connection = app.use(controller).listen(PORT, HOST)
 const io = socket(connection)
@@ -40,7 +40,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     address :  HOST,
-    localPort : 3000
+    localPort : PORT
 })
 udpPort.open()
 udpPort.on("ready", function () {
