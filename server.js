@@ -10,7 +10,7 @@ server.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 const controller = require('./controller/controller')
-const io = socket(server.use(controller).listen(443))
+const io = socket(server.use(controller).listen(443, HOST))
 console.log("SERVER:", server)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
@@ -19,6 +19,7 @@ var serialPort = new osc.SerialPort({
 serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
 serialPort.open()
 var getIPAddresses = function () {
+    
     var os = require("os"),
         interfaces = os.networkInterfaces(),
         ipAddresses = []
@@ -42,7 +43,7 @@ var udpPort = new osc.UDPPort({
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
-    var ipAddresses = getIPAddresses();
+    var ipAddresses = getIPAddresses()
     console.log("Listening for OSC over UDP.");
     ipAddresses.forEach(function (address) {
         console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
