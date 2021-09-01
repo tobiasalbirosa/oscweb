@@ -13,39 +13,35 @@ const controller = require('./controller/controller')
 const path = require('path')
 const connection = app.use(controller).listen(3000)
 const io = socket(connection)
-console.log("Connectado:", HOST, ':' ,PORT)
+console.log("Connectado:", HOST, ':', PORT)
 //OSC SERIAL PORT
 
-var SerialP = require("serialport");
-var port = "message";
-
-var serialP = new SerialP(port, {
-  baudRate: 9600
-})
-serialP.on("open", function() {
-  console.log("-- Connection opened --");
-  serialP.on("data", function(data) {
-    console.log("Data received: " + data);
-  })
-})
+var SerialPort = require("serialport");
 
 
-var serialPort = new osc.SerialPort({
-    devicePath : 'message'
+//var virtualSerialPort = new SerialPort("message")
+
+virtualSerialPort.on("open", function () {
+    console.log("-- Connection opened --");
+   
+    virtualSerialPort.on("data", function (data) {
+        console.log("Data received: " + data);
+    })
 })
-serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
-serialPort.open()
+
+
+
 var getIPAddresses = function () {
     var os = require("os"),
         interfaces = os.networkInterfaces(),
         ipAddresses = []
-     //   console.log("Interfaces",interfaces)
+    //   console.log("Interfaces",interfaces)
     for (var deviceName in interfaces) {
         var addresses = interfaces[deviceName]
-   //     console.log("Addresses on get IP",addresses)
+        //     console.log("Addresses on get IP",addresses)
         for (var i = 0; i < addresses.length; i++) {
             var addressInfo = addresses[i]
-           
+
             if (addressInfo.family === "eth0" && !addressInfo.internal) {
                 ipAddresses.push(addressInfo.address)
             }
@@ -55,21 +51,21 @@ var getIPAddresses = function () {
     return ipAddresses
 }
 //UDP PORT
-console.log("HOST",HOST)
+console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
-    address :  HOST,
-    localPort : 5000
+    address: HOST,
+    localPort: 5000
 })
 udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
     var ipAddresses = getIPAddresses()
     ipAddresses.forEach(function (address) {
-    console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
+        console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
     })
 })
 udpPort.on("message", function (oscMessage) {
     io.emit('message', oscMessage)
 })
-udpPort.on("error", function (err) { console.log("ERROR ON PORT UDP: ",err) })
-console.log("udpPort: ",udpPort)
+udpPort.on("error", function (err) { console.log("ERROR ON PORT UDP: ", err) })
+console.log("udpPort: ", udpPort)
