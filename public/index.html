@@ -1,0 +1,39 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script> 
+    <h1>
+        OSC WEB
+    </h1>
+    <h3>
+        Valor 1
+    </h3>
+    <div id="valor0">0.0</div>
+    <h3>
+        Valor 2
+    </h3>
+    <div id="valor1">0.0</div>
+    <h3>
+        Valor 3
+    </h3>
+    <div id="valor2">0.0</div>
+
+    <h3>
+        Valor 4
+    </h3>
+    <div id="valor3">0.0</div>
+</html>
+<script>
+    var socket = io('192.168.0.13:5000', { transports : ['websocket'] })
+    const listeners = socket.listenersAny()
+     socket.on('message',  message => {
+        var json = message['args']
+        if(json != undefined){         
+            json = json[0].split('/')
+            json.forEach((value, i) => {
+                console.log(value ,i)
+                let ID = "valor"+i
+                document.getElementById(ID).innerHTML = value
+            })
+        }
+
+     })   
+</script>
