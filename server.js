@@ -41,7 +41,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     localAddress: "oscweb.herokuapp.com",
-    localPort: 5000
+    localPort: 5001
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
