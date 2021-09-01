@@ -8,7 +8,6 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-const PORT = process.env.PORT
 const controller = require('./controller/controller')
 
 
@@ -44,7 +43,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     localAddress: "127.0.0.1",
-    localPort: 5000
+    localPort: 8
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
