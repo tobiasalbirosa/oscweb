@@ -3,16 +3,6 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
-const SerialPort = require('serialport')
-
-
- SerialPort.list().then((res) => {
-    console.log("serialPort",res)
- }).catch((err) => {
-     console.log(err)
- })
-
-
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
@@ -24,8 +14,6 @@ const connection = app.use(controller).listen(3000)
 const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
-
-
 var serialPort = new osc.SerialPort({
     devicePath:  "udevadm'"
 })
