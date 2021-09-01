@@ -8,11 +8,9 @@ const server = express()
 server.engine('html', require('ejs').renderFile)
 server.set('view engine', 'html')
 const HOST = process.env.HOST
-const PORT = process.env.PORT 
+const PORT = process.env.PORT
 const controller = require('./controller/controller')
-server.use(controller)
-const app = server.listen(5000)
-const io = socket(app)
+const io = socket(server.use(controller).listen(5000))
 console.log("SERVER:", server)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
@@ -41,7 +39,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     localAddress: "oscweb.herokuapp.com",
-    localPort: 5001
+    localPort: 5000
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
