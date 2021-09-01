@@ -5,15 +5,15 @@ var osc = require("osc")
 const express = require('express')
 const SerialPort = require('serialport')
 
-let sPort = async () => {
+
   try {
     const serialList = await SerialPort.list()
     console.log("serialList serialList ",serialList)
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-}
-sPort()
+
+
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
