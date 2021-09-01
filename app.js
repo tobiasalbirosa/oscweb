@@ -10,7 +10,7 @@ app.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT || 3000
 const controller = require('./controller/controller')
-const connection = app.use(controller).listen(443, HOST)
+const connection = app.use(controller).listen(3000, HOST)
 const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
