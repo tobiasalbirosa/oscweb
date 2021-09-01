@@ -11,8 +11,8 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT 
 const controller = require('./controller/controller')
 server.use(controller)
-const server = server.listen(443)
-const io = socket(server)
+const app = server.listen(443)
+const io = socket(app)
 console.log("SERVER:", server)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
