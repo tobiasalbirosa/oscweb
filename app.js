@@ -40,7 +40,7 @@ var getIPAddresses = function () {
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
     address :  HOST,
-    localPort : 6000
+    localPort : 44342
 })
 udpPort.open()
 udpPort.on("ready", function () {
