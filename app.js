@@ -3,6 +3,19 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
+const SerialPort = require('serialPort')
+SerialPort.list(function (err, ports) {
+    ports.forEach(function(port) {
+
+        console.log("pnpId: " + port.pnpId);
+        console.log("manufacturer: " + port.manufacturer);
+        console.log("comName: " + port.comName);
+        console.log("serialNumber: " + port.serialNumber);
+        console.log("vendorId: " + port.vendorId);
+        console.log("productId: " + port.productId);
+    });
+});
+
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
@@ -14,8 +27,10 @@ const connection = app.use(controller).listen(3000)
 const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
+
+
 var serialPort = new osc.SerialPort({
-    devicePath:  "/"
+    devicePath:  "/message"
 })
 serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
 serialPort.open()
