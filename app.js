@@ -15,7 +15,7 @@ const io = socket(connection)
 console.log("Connectado:", HOST, ':' ,PORT)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
-    devicePath:  "/message"
+    devicePath:  "/"
 })
 serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
 serialPort.open()
