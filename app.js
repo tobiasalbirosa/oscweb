@@ -3,7 +3,7 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
-const SerialPort = require('serialPort')
+const SerialPort = require('serialport')
 SerialPort.list(function (err, ports) {
     ports.forEach(function(port) {
 
