@@ -8,7 +8,7 @@ const server = express()
 server.engine('html', require('ejs').renderFile)
 server.set('view engine', 'html')
 const HOST = process.env.HOST
-const controller = require('../controller/controller')
+const controller = require('./controller/controller')
 const io = socket(server.use(controller).listen(5000))
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({

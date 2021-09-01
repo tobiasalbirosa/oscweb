@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "nodemon ./server/server.js"
+        "start": "node server.js"
     },
     "dependencies": {
         "dotenv": "^10.0.0",
