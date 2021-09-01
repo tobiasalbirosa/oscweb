@@ -7,7 +7,7 @@ const SerialPort = require('serialport')
 
 
  SerialPort.list().then((res) => {
-    console.log(res)
+    console.log("serialPort",res)
  }).catch((err) => {
      console.log(err)
  })
@@ -35,10 +35,10 @@ var getIPAddresses = function () {
     var os = require("os"),
         interfaces = os.networkInterfaces(),
         ipAddresses = []
-        console.log("Interfaces",interfaces)
+     //   console.log("Interfaces",interfaces)
     for (var deviceName in interfaces) {
         var addresses = interfaces[deviceName]
-        console.log("Addresses on get IP",addresses)
+   //     console.log("Addresses on get IP",addresses)
         for (var i = 0; i < addresses.length; i++) {
             var addressInfo = addresses[i]
            

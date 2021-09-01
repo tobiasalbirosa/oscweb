@@ -22,7 +22,7 @@
     <div id="valor3">0.0</div>
 </html>
 <script>
-    var socket = io('localhost')
+    var socket = io('oscweb.herokuapp.com')
     const listeners = socket.listenersAny()
      socket.on('message',  message => {
         var json = message['args']
