@@ -9,7 +9,8 @@ app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
 const controller = require('./controller/controller')
-const io = socket(app.use(controller).listen(3000))
+const connection = app.use(controller).listen(3000)
+const io = socket(connection)
 console.log("app:", app)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
