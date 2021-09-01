@@ -7,7 +7,7 @@ const SerialPort = require('serialport')
 
 
   try {
-    const serialList = await SerialPort.list()
+    const serialList = SerialPort.list()
     console.log("serialList serialList ",serialList)
   } catch (e) {
     console.log(e)
