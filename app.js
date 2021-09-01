@@ -3,15 +3,17 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
-//SERVER
-const server = express()
-server.engine('html', require('ejs').renderFile)
-server.set('view engine', 'html')
+//APP
+const app = express()
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 const controller = require('./controller/controller')
-const io = socket(server.use(controller).listen(5000))
-console.log("SERVER:", server)
+
+
+const io = socket(app.use(controller).listen(5000))
+console.log("app:", app)
 //OSC SERIAL PORT
 var serialPort = new osc.SerialPort({
     devicePath:  "/message"
@@ -23,6 +25,9 @@ var getIPAddresses = function () {
     var os = require("os"),
         interfaces = os.networkInterfaces(),
         ipAddresses = []
+
+        console.log(interfaces)
+
     for (var deviceName in interfaces) {
         var addresses = interfaces[deviceName]
         console.log("Addresses on get IP",addresses)
@@ -38,8 +43,8 @@ var getIPAddresses = function () {
 //UDP PORT
 console.log("HOST",HOST)
 var udpPort = new osc.UDPPort({
-    localAddress: "oscweb.herokuapp.com",
-    localPort: 8080
+    localAddress: "127.0.0.1",
+    localPort: 5000
 })
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
