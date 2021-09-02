@@ -17,7 +17,7 @@ app.use(controller)
 
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-const io = socket(app.listen(3000))
+const io = socket(app.listen(TCPPORT))
 //getIPAddresses
 
 io.on("message", function (message) {
