@@ -14,10 +14,11 @@ const UDPPORT = 5000
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
-const server = app.listen(TCPPORT)
+app.listen(TCPPORT)
+
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-const io = socket(server)
+const io = socket(app.listen(UDPPORT))
 
 
 //getIPAddresses
