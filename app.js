@@ -11,7 +11,7 @@ const HOST = process.env.HOST
 const controller = require('./controller/controller')
 const io = socket(server.use(controller).listen(5000))
 //OSC SERIAL PORTvar 
-udpPort = new osc.UDPPort({
+let udpPort = new osc.UDPPort({
     localAddress: "0.0.0.0",
     localPort: 57121,
     metadata: true
