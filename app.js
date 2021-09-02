@@ -20,12 +20,6 @@ const osc = require('osc')
 const io = socket(app.listen(3000))
 //getIPAddresses
 
-const UDPPort = new osc.UDPPort ({
-  localAddress: 'oscweb.herokuapp.com',
-  localPort: 5000,
-  socket : io
-})
-console.log(UDPPort)
 io.on("message", function (message) {
   console.log("message: ",message)
 })
