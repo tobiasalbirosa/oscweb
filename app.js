@@ -17,11 +17,12 @@ app.use(controller)
 
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-const { pbkdf2Sync } = require('crypto')
 const io = socket(app.listen(3000))
 //getIPAddresses
 
 const UDPPort = new osc.UDPPort ({
+  localAddress: 'oscweb.herokuapp.com',
+  localPort: 5000,
   socket : io
 })
 console.log(UDPPort)
