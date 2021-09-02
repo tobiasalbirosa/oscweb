@@ -14,7 +14,7 @@ const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(PORT,HOST))
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
-    address:'0.0.0.0',
+    address:'oscweb.herokuapp.com',
     localPort: 443,
     metadata: true
 })
