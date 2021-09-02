@@ -18,7 +18,7 @@ const io = socket(socketApp)
 var udpPort = new osc.UDPPort({
     localAddress: HOST,
     address: HOST,
-    localPort: 443,
+    localPort: 3030,
     metadata: true
 })
 udpPort.open()
