@@ -40,16 +40,7 @@ var getIPAddresses = function () {
 getIPAddresses()
 
 //OSC SERIAL PORTvar 
-var UDPort = new osc.UDPPort({
-  localAddress: "172.17.172.98",
-  localPort: UDPPORT,
-  metadata: true
-})
-console.log(HOST,UDPPORT)
-console.log(UDPort)
-UDPort.on("message", function (oscMessage) { console.log(oscMessage) })
-UDPort.on("error", function (error) { console.log(error) })
-UDPort.open()
+
 
 /*
 io.on("connect", function (socket) {
