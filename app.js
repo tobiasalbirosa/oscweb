@@ -19,6 +19,9 @@ const io = socket(app.listen(TCPPORT))
 io.on("message", function (message) {
   console.log("message: ",message)
 })
+io.on("disconnect", function (disconnect) {
+  console.log("disconnect: ",disconnect)
+})
 io.on("connect", function (socket) {
   console.log("connected id: ",socket.id)
 })
