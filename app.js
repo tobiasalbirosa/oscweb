@@ -15,7 +15,7 @@ const io = socket(app.use(controller).listen(PORT))
 
 var UDPPort = new osc.UDPPort({
     localAddress: HOST,
-    localPort: PORT,
+    localPort: 5000,
     metadata: true
 })
 UDPPort.on("message", function (oscMessage) { console.log(oscMessage) })
