@@ -17,24 +17,23 @@ app.use(controller)
 
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-const io = socket(app.listen(TCPPORT))
+const { pbkdf2Sync } = require('crypto')
+const io = socket(app.listen(3000))
 //getIPAddresses
-var getIPAddresses = function () {
-     let interfaces = os.networkInterfaces(),
-      ipAddresses = []
-  for (var deviceName in interfaces) {
-      var addresses = interfaces[deviceName]
-      console.log(addresses)
-      console.log(addresses.length)
-      for (var i = 0; i < addresses.length; i++) {
-          var addressInfo = addresses[i]
-          ipAddresses.push(addressInfo.address) 
-      }
-  }
-}
 
+const UDPPort = new osc.UDPPORT ({
 
-getIPAddresses()
+})
+
+io.on("message", function (message) {
+  console.log("message: ",message)
+})
+io.on("connect", function (socket) {
+  console.log("connected id: ",socket.id)
+})
+io.on('error',function(error) {
+  console.log('error', error);
+})
 //OSC SERIAL PORTvar 
 /*
 io.on("connect", function (socket) {
