@@ -26,6 +26,7 @@
     var socket = io('https://oscweb.herokuapp.com',  { transports : ['websocket'] })
     const listeners = socket.listenersAny()
      socket.on('message',  message => {
+         console.log(message)
         var json = message['args']
         if(json != undefined){         
             json = json[0].split('/')
