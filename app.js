@@ -11,7 +11,7 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-app.use(controller).listen(5000)
+app.use(controller).listen(3000)
 
 /*
 socket.on('listening', () => {
