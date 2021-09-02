@@ -11,10 +11,10 @@ const HOST = process.env.HOST
 const PORT =  process.env.PORT
 console.log("HOST: ", HOST," PORT: ", PORT)
 const controller = require('./controller/controller')
-const io = socket(app.use(controller).listen(PORT,HOST))
+const io = socket(app.use(controller).listen(443))
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
-    address:'oscweb.herokuapp.com',
+    address:"oscweb.herokuapp.com",
     localPort: 443,
     metadata: true
 })
