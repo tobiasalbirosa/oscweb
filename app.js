@@ -6,6 +6,24 @@ const express = require('express')
 const controller = require('./controller/controller')
 var HOST = 'oscweb.herokuapp.com'
 var PORT = 3000 
+const dgram = require('dgram');
+
+const udpServer = dgram.createSocket('udp4');
+
+udpServer.on('error', (err) => {
+  console.log(`server error:\n${err.stack}`);
+  udpServer.close();
+});
+udpServer.on('message', (msg, rinfo) => {
+  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+});
+udpServer.on('listening', () => {
+  const address = udpServer.address();
+  console.log(`server listening ${address.address}:${address.port}`);
+});
+
+udpServer.bind(3030);
+
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
