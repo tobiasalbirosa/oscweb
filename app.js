@@ -2,53 +2,24 @@
 require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
-const express = require('express')
+//const express = require('express')
 //SERVER
 const server = express()
 server.engine('html', require('ejs').renderFile)
 server.set('view engine', 'html')
 const HOST = process.env.HOST
-const controller = require('../controller/controller')
+const controller = require('./controller/controller')
 const io = socket(server.use(controller).listen(5000))
-//OSC SERIAL PORT
-var serialPort = new osc.SerialPort({
-    devicePath:  "/message"
+//OSC SERIAL PORTvar 
+udpPort = new osc.UDPPort({
+    localAddress: "0.0.0.0",
+    localPort: 57121,
+    metadata: true
 })
-serialPort.on("message", function (oscMessage) { console.log(oscMessage) })
-serialPort.open()
-var getIPAddresses = function () {
-    var os = require("os"),
-        interfaces = os.networkInterfaces(),
-        ipAddresses = []
-    for (var deviceName in interfaces) {
-        var addresses = interfaces[deviceName]
-        console.log(addresses)
-        for (var i = 0; i < addresses.length; i++) {
-            var addressInfo = addresses[i]
-            if (addressInfo.family === "IPv4" && !addressInfo.internal) {
-                ipAddresses.push(addressInfo.address)
-            }
-        }
-    }
-    return ipAddresses
-}
-//UDP PORT
-console.log("HOST",HOST)
-var udpPort = new osc.UDPPort({
-    localAddress: HOST,
-    localPort: 5000
+// Listen for incoming OSC messages.
+udpPort.on("message", function (oscMsg, timeTag, info) {
+    console.log("An OSC message just arrived!", oscMsg)
+    console.log("Remote info is: ", info)
 })
-udpPort.on("ready", function () {
-    io.sockets.setMaxListeners(1)
-    var ipAddresses = getIPAddresses();
-    console.log("Listening for OSC over UDP.");
-    ipAddresses.forEach(function (address) {
-        console.log(" Host:", address + ", Port:", udpPort.options.localPort)
-    })
-})
-udpPort.on("message", function (oscMessage) {
-    io.emit('message', oscMessage)
-})
-udpPort.on("error", function (err) { console.log("error: ",err) })
-console.log("udpPort: ",udpPort)
+// Open the socket.
 udpPort.open()
