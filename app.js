@@ -18,6 +18,7 @@ console.log(" PORT: ", PORT)
 const io = socket(socketApp)
 //OSC UDP PORT
 var udpPort = new osc.UDPPort({
+    address: HOST,
     localAddress: HOST,
     localPort: 3000,
     metadata: true
