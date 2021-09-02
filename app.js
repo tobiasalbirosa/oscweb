@@ -2,7 +2,10 @@ const express = require('express')
 const dgram = require('dgram')
 const controller = require('./controller/controller')
 const app = express()
-app.engine('html', require('ejs').renderFile).set('view engine', 'html').use(controller).listen(5000)
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'html')
+app.use(controller)
+app.listen(5000)
 
 /*
 socket.on('listening', () => {
