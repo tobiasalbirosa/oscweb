@@ -16,7 +16,7 @@ const server = app.listen(PORT)
 const io = socket(server)
 
 var fp = require("find-free-port")
-for(let i = 0; i < 50000; i++){
+for(let i = 0; i < 500; i++){
   fp(i).then(([freep]) => {
     console.log('found ' + freep)
 }).catch((err)=>{
