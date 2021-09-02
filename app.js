@@ -8,14 +8,14 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-const PORT = 3000
+const PORT =  process.env.PORT
+console.log("HOST: ", HOST," PORT: ", PORT)
 const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(PORT,HOST))
 //OSC SERIAL PORT
-console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
     address:'0.0.0.0',
-    localPort: 3030,
+    localPort: 443,
     metadata: true
 })
 udpPort.open()
