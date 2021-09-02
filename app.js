@@ -21,10 +21,10 @@ const { pbkdf2Sync } = require('crypto')
 const io = socket(app.listen(3000))
 //getIPAddresses
 
-const UDPPort = new osc.UDPPORT ({
+const UDPPort = new osc.UDPPort ({
 
 })
-
+console.log(UDPPort)
 io.on("message", function (message) {
   console.log("message: ",message)
 })
