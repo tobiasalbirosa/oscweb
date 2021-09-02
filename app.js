@@ -8,7 +8,7 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-const PORT = process.env.PORT || 3000
+const PORT = 3000
 const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(PORT))
 //OSC SERIAL PORT
@@ -32,7 +32,7 @@ var getIPAddresses = function () {
 console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
     address: HOST,
-    localPort: PORT
+    localPort: 3000
 })
 udpPort.open()
 udpPort.on("ready", function () {
@@ -43,6 +43,7 @@ udpPort.on("ready", function () {
     })
 })
 udpPort.on("message", function (oscMessage) {
+    console.log(oscMessage)
     io.emit('message', oscMessage)
 })
 udpPort.on("error", function (err) { console.log("ERROR ON PORT UDP: ", err) })
