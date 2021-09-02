@@ -16,6 +16,9 @@ console.log("THE PORT", TCPPORT)
 const osc = require('osc')
 const io = socket(app.listen(TCPPORT))
 //getIPAddresses
+socket.on("message", function (message) {
+  console.log("message: ",message)
+})
 io.on("message", function (message) {
   console.log("message: ",message)
 })
