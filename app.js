@@ -1,25 +1,50 @@
 'use strict'
 require('dotenv').config()
 var socket = require('socket.io')
-var osc = require("osc")
 const express = require('express')
-//SERVER
-const server = express()
-server.engine('html', require('ejs').renderFile)
-server.set('view engine', 'html')
-const HOST = process.env.HOST
 const controller = require('./controller/controller')
-const io = socket(server.use(controller).listen(5000))
+
+//APP
+const app  = express()
+const HOST = process.env.HOST
+const PORT = process.env.PORT || 5000
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'html')
+app.use(controller)
+console.log(HOST,PORT)
+const server = app.listen(PORT)
+const io = socket(server)
+
+var fp = require("find-free-port")
+for(let i = 0; i < 50000; i++){
+  fp(i).then(([freep]) => {
+    console.log('found ' + freep)
+}).catch((err)=>{
+    console.error(err);
+});
+}
+
+
 //OSC SERIAL PORTvar 
-let udpPort = new osc.UDPPort({
-    localAddress: "0.0.0.0",
-    localPort: 57121,
-    metadata: true
+io.on("connect", function (socket) {
+    console.log("connected id: ",socket.id)
 })
-// Listen for incoming OSC messages.
-udpPort.on("message", function (oscMsg, timeTag, info) {
-    console.log("An OSC message just arrived!", oscMsg)
-    console.log("Remote info is: ", info)
-})
-// Open the socket.
-udpPort.open()
+io.on('message',function(socket) {
+    console.log('message', socket.name);
+
+  })
+  io.on('error',function(error) {
+    console.log('error', error);
+
+  })
+io.on('connection',function(socket) {
+    console.log('made socket connection', socket.name);
+    socket.on('error', (error) => { 
+        console.log("error: ",error)
+
+    })
+    socket.on('message', (message) => { 
+        console.log("message: ",message)
+
+    })
+  })
