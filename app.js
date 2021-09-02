@@ -9,13 +9,13 @@ app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
 const PORT =  process.env.PORT
-console.log("HOST: ", HOST," PORT: ", PORT)
+console.log("HOST: ", HOST," PORT: ", 80)
 const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(443))
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
     address:"oscweb.herokuapp.com",
-    localPort: 443,
+    localPort: 80,
     metadata: true
 })
 udpPort.open()
