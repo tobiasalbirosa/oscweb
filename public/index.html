@@ -23,7 +23,7 @@
 </html>
 <script>
 
-    var socket = io('http://localhost:3000')
+    var socket = io('https://oscweb.herokuapp.com',  { transports : ['websocket'] })
     const listeners = socket.listenersAny()
      socket.on('message',  message => {
         var json = message['args']
