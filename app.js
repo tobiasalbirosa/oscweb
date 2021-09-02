@@ -7,8 +7,8 @@ const controller = require('./controller/controller')
 //APP
 const app  = express()
 const HOST = process.env.HOST
-const TCPPORT = 5000
-const UDPPORT = 3000
+const TCPPORT = 3000
+const UDPPORT = 5000
 
 //MONTAMOS UN PUERTO TCP PARA LOS USUARIOS WEB
 app.engine('html', require('ejs').renderFile)
@@ -41,7 +41,7 @@ getIPAddresses()
 
 //OSC SERIAL PORTvar 
 var UDPort = new osc.UDPPort({
-  localAddress: "oscweb.herokuapp.com",
+  localAddress: "181.170.82.229",
   localPort: UDPPORT,
   metadata: true
 })
