@@ -16,7 +16,7 @@ const io = socket(app.use(controller).listen(PORT))
 
 console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
-    address: HOST,
+    address: 'https://oscweb.herokuapp.com',
     localPort: 5000
 })
 udpPort.open()
