@@ -4,8 +4,8 @@ var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
 const controller = require('./controller/controller')
-var HOST = process.env.HOST || 'oscweb.herokuapp.com'
-var PORT = 443 ||process.env.PORT 
+var HOST = 'oscweb.herokuapp.com'
+var PORT = 3000 ||process.env.PORT 
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
@@ -14,7 +14,7 @@ let socketApp = app.listen(PORT)
 app.use(controller)
 console.log(" PORT: ", PORT)
 const io = socket(socketApp)
-//OSC SERIAL PORT
+//OSC UDP PORT
 var udpPort = new osc.UDPPort({
     address: HOST,
     localPort: PORT,
