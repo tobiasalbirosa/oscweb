@@ -1,15 +1,12 @@
 const express = require('express')
 const dgram = require('dgram')
 const controller = require('./controller/controller')
-// ...
-const app = express();
-app.engine('html', require('ejs').renderFile)
-app.set('view engine', 'html')
-app.use(controller)
-// ... filter stack ...
+const app = express()
 const socket = dgram.createSocket('udp4')
-
-app.listen(3000) // listen for TCP with Express
+app
+    .engine('html', require('ejs').renderFile)
+    .set('view engine', 'html')
+    .use(controller).listen(5000)
 
 /*
 socket.on('listening', () => {
