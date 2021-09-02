@@ -3,18 +3,23 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
+const controller = require('./controller/controller')
+var HOST = process.env.HOST || 'oscweb.herokuapp.com'
+var PORT = 443 ||process.env.PORT 
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
+let socketApp = app.listen(PORT)
+app.use(controller)
+console.log(" PORT: ", PORT)
+const io = socket(socketApp)
 
-console.log(" PORT: ", 80)
-const controller = require('./controller/controller')
-const io = socket(app.use(controller).listen(80))
+
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
     address:"oscweb.herokuapp.com",
-    localPort: 80,
+    localPort: PORT,
     metadata: true
 })
 udpPort.open()
