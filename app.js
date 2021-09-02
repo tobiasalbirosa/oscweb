@@ -7,11 +7,10 @@ const express = require('express')
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-const HOST = process.env.HOST
-const PORT =  process.env.PORT
-console.log("HOST: ", HOST," PORT: ", 80)
+
+console.log(" PORT: ", 80)
 const controller = require('./controller/controller')
-const io = socket(app.use(controller).listen(443))
+const io = socket(app.use(controller).listen(80))
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
     address:"oscweb.herokuapp.com",
