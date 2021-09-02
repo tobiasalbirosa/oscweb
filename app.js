@@ -4,13 +4,13 @@ require('dotenv').config()
 var socket = require('socket.io')
 var osc = require("osc")
 const express = require('express')
-//SERVER
+const controller = require('./controller/controller')
+
+//APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 const HOST = process.env.HOST
-const controller = require('../controller/controller')
-
 app.use(controller).listen(5000)
 
 /*
