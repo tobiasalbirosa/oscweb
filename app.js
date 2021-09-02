@@ -14,11 +14,9 @@ let socketApp = app.listen(PORT)
 app.use(controller)
 console.log(" PORT: ", PORT)
 const io = socket(socketApp)
-
-
 //OSC SERIAL PORT
 var udpPort = new osc.UDPPort({
-    address:"oscweb.herokuapp.com",
+    address: HOST,
     localPort: PORT,
     metadata: true
 })
