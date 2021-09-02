@@ -41,7 +41,7 @@ getIPAddresses()
 
 //OSC SERIAL PORTvar 
 var UDPort = new osc.UDPPort({
-  localAddress: "127.0.0.1",
+  localAddress: "172.17.172.98",
   localPort: UDPPORT,
   metadata: true
 })
