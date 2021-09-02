@@ -12,23 +12,8 @@ const PORT = 3000
 const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(PORT))
 //OSC SERIAL PORT
-var getIPAddresses = function () {
-    var os = require("os"),
-        interfaces = os.networkInterfaces(),
-        ipAddresses = []
-    for (var deviceName in interfaces) {
-        var addresses = interfaces[deviceName]
-        console.log(addresses)
-        for (var i = 0; i < addresses.length; i++) {
-            var addressInfo = addresses[i]
-            if (addressInfo.family === "IPv4" && !addressInfo.internal) {
-                ipAddresses.push(addressInfo.address)
-            }
-        }
-    }
-    return ipAddresses
-}
-//UDP PORT
+
+
 console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
     address: HOST,
@@ -37,10 +22,7 @@ var udpPort = new osc.UDPPort({
 udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
-    var ipAddresses = getIPAddresses()
-    ipAddresses.forEach(function (address) {
-        console.log("UDP Host:", address + ", Port:", udpPort.options.localPort)
-    })
+    console.log("UDP Host:", HOST + ", Port:", udpPort.options.localPort)
 })
 udpPort.on("message", function (oscMessage) {
     console.log(oscMessage)
