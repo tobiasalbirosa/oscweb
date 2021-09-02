@@ -12,15 +12,6 @@ const PORT = process.env.PORT || 3000
 const controller = require('./controller/controller')
 const io = socket(app.use(controller).listen(PORT))
 //OSC SERIAL PORT
-
-var UDPPort = new osc.UDPPort({
-    localAddress: HOST,
-    localPort: 5000,
-    metadata: true
-})
-UDPPort.on("message", function (oscMessage) { console.log(oscMessage) })
-UDPPort.open()
-
 var getIPAddresses = function () {
     var os = require("os"),
         interfaces = os.networkInterfaces(),
@@ -43,7 +34,6 @@ var udpPort = new osc.UDPPort({
     address: HOST,
     localPort: PORT
 })
-
 udpPort.open()
 udpPort.on("ready", function () {
     io.sockets.setMaxListeners(1)
