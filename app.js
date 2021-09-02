@@ -17,7 +17,7 @@ app.use(controller)
 
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-const io = socket(app.listen(TCPPORT,HOST))
+const io = socket(app.listen(TCPPORT,'oscweb.herokuapp.com'))
 //getIPAddresses
 var getIPAddresses = function () {
      let interfaces = os.networkInterfaces(),
