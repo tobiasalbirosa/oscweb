@@ -1,11 +1,17 @@
+
+'use strict'
+require('dotenv').config()
+var socket = require('socket.io')
+var osc = require("osc")
 const express = require('express')
-const dgram = require('dgram')
-const controller = require('./controller/controller')
+//SERVER
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-app.use(controller)
-app.listen(5000)
+const HOST = process.env.HOST
+const controller = require('../controller/controller')
+
+app.use(controller).listen(5000)
 
 /*
 socket.on('listening', () => {
