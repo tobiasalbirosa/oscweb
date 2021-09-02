@@ -22,7 +22,7 @@ const io = socket(app.listen(3000))
 //getIPAddresses
 
 const UDPPort = new osc.UDPPort ({
-
+  socket : io
 })
 console.log(UDPPort)
 io.on("message", function (message) {
