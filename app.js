@@ -17,7 +17,7 @@ const io = socket(app.use(controller).listen(PORT))
 console.log("HOST", HOST)
 var udpPort = new osc.UDPPort({
     address: HOST,
-    localPort: 3000
+    localPort: 5000
 })
 udpPort.open()
 udpPort.on("ready", function () {
