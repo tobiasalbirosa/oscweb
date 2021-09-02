@@ -11,8 +11,8 @@ const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
-let socketApp = app.listen(PORT)
-app.listen(443)
+let socketApp = app.listen(3030)
+app.listen(3000)
 const io = socket(socketApp)
 var udpPort = new osc.UDPPort({
     address: HOST,
