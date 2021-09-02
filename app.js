@@ -7,7 +7,7 @@ const controller = require('./controller/controller')
 //APP
 const app  = express()
 const HOST = process.env.HOST
-const TCPPORT = 3000
+const TCPPORT =   process.env.PORT || 3000
 const UDPPORT = 5000
 
 //MONTAMOS UN PUERTO TCP PARA LOS USUARIOS WEB
