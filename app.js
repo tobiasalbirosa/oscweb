@@ -8,6 +8,10 @@ app.set('view engine', 'html')
 app.use(controller)
 // ... filter stack ...
 const socket = dgram.createSocket('udp4')
+
+app.listen(3000) // listen for TCP with Express
+
+/*
 socket.on('listening', () => {
   let addr = socket.address();
   console.log(`Listening for UDP packets at ${addr.address}:${addr.port}`);
@@ -18,9 +22,7 @@ socket.on('error', (err) => {
 socket.on('message', (msg, rinfo) => {
   console.log('Recieved UDP message')
 })
-app.listen(3000) // listen for TCP with Express
 socket.bind(8082)     // listen for UDP with dgra
-/*
 'use strict'
 require('dotenv').config()
 var socket = require('socket.io')
