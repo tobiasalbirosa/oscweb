@@ -5,38 +5,21 @@ var osc = require("osc")
 const express = require('express')
 const controller = require('./controller/controller')
 var HOST = 'oscweb.herokuapp.com'
-var PORT = 3000 
-const dgram = require('dgram');
-
-const udpServer = dgram.createSocket('udp4');
-
-udpServer.on('error', (err) => {
-  console.log(`server error:\n${err.stack}`);
-  udpServer.close();
-});
-udpServer.on('message', (msg, rinfo) => {
-  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
-});
-udpServer.on('listening', () => {
-  const address = udpServer.address();
-  console.log(`server listening ${address.address}:${address.port}`);
-});
-
-udpServer.bind(5000);
+var PORT = 443 
 
 //APP
 const app = express()
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-let socketApp = app.listen(PORT)
 app.use(controller)
+
+let socketApp = app.listen(PORT)
 console.log(" PORT: ", PORT)
 const io = socket(socketApp)
 //OSC UDP PORT
 var udpPort = new osc.UDPPort({
     localAddress: HOST,
-    address: HOST,
-    localPort: 3030,
+    localPort: 3000,
     metadata: true
 })
 udpPort.open()
