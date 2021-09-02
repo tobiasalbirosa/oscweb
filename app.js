@@ -1,32 +1,25 @@
-const express = require('express');
-const dgram = require('dgram');
+const express = require('express')
+const dgram = require('dgram')
 const controller = require('./controller/controller')
 // ...
-
 const app = express();
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
 // ... filter stack ...
-
-const socket = dgram.createSocket('udp4');
-
+const socket = dgram.createSocket('udp4')
 socket.on('listening', () => {
   let addr = socket.address();
   console.log(`Listening for UDP packets at ${addr.address}:${addr.port}`);
-});
-
+})
 socket.on('error', (err) => {
-  console.error(`UDP error: ${err.stack}`);
-});
-
+  console.error(`UDP error: ${err.stack}`)
+})
 socket.on('message', (msg, rinfo) => {
-  console.log('Recieved UDP message');
-});
-
-app.set('port', 8080); // listen for TCP with Express
-socket.bind(8082);     // listen for UDP with dgra
-
+  console.log('Recieved UDP message')
+})
+app.listen(3000) // listen for TCP with Express
+socket.bind(8082)     // listen for UDP with dgra
 /*
 'use strict'
 require('dotenv').config()
