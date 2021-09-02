@@ -17,7 +17,7 @@ app.use(controller)
 app.listen(TCPPORT)
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
-
+const io = socket(app.listen(30))
 //getIPAddresses
 var getIPAddresses = function () {
      let interfaces = os.networkInterfaces(),
@@ -26,7 +26,6 @@ var getIPAddresses = function () {
       var addresses = interfaces[deviceName]
       console.log(addresses)
       console.log(addresses.length)
-
       for (var i = 0; i < addresses.length; i++) {
           var addressInfo = addresses[i]
           ipAddresses.push(addressInfo.address) 
