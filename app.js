@@ -19,9 +19,9 @@ const io = socket(app.listen(TCPPORT))
 io.on("/", (message) => {
   console.log("/: ",message)
 })
-io.on("connection", function (connection) {
-  console.log(connection)
-  io.on("message", function (message) {
+io.on("connection", function (socket) {
+  console.log("connection ",socket)
+  socket.on("message", function (message) {
     console.log(message)
   })
 })
