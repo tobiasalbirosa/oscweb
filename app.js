@@ -1,6 +1,5 @@
 'use strict'
 require('dotenv').config()
-var os = require("os")
 var socket = require('socket.io')
 const express = require('express')
 const controller = require('./controller/controller')
@@ -22,7 +21,7 @@ io.on("/", (message) => {
 io.on("connection", function (socket) {
   console.log("connection ",socket)
   socket.on("message", function (message) {
-    console.log(message)
+   io.emit("message", message)
   })
 })
 io.on("disconnect", function (disconnect) {
