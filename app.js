@@ -21,7 +21,7 @@ io.on("/", (message) => {
 })
 io.on("connection", function (connection) {
   console.log(connection)
-  socket.io.on("message", function (message) {
+  io.on("message", function (message) {
     console.log(message)
   })
 })
