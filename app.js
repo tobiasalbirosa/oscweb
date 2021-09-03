@@ -17,10 +17,13 @@ const osc = require('osc')
 const io = socket(app.listen(TCPPORT))
 //getIPAddresses
 io.on("/", (message) => {
-  console.log("message: ",message)
+  console.log("/: ",message)
 })
-io.on("message", function (message) {
-  console.log("message: ",message)
+io.on("connection", function (connection) {
+  console.log(connection)
+  socket.on("message", function (message) {
+    console.log(message)
+  })
 })
 io.on("disconnect", function (disconnect) {
   console.log("disconnect: ",disconnect)
