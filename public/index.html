@@ -1,42 +1,105 @@
 <html>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script> 
-    <h1>
-        OSC WEB
-    </h1>
-    <h3>
-        Valor 1
-    </h3>
-    <div id="valor0">0.0</div>
-    <h3>
-        Valor 2
-    </h3>
-    <div id="valor1">0.0</div>
-    <h3>
-        Valor 3
-    </h3>
-    <div id="valor2">0.0</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.js"
+    integrity="sha512-+esjJ8NSEfoB5Sr8R7jTcYxCR1Bd6q9C+WQC0JA2UXVPT8Mlo/TJqqyp0qeeoxFzkAaa8t6tZCHLGmw3oNI2Qg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="public/scripts/sketch.js"></script>
+<h1>
+    OSC WEB
+</h1>
+<button onclick="touchStarted()">Acceder al audio </button>
+<h3>
+    Valor 1
+</h3>
+<div id="valor0">0.0</div>
+<h3>
+    Valor 2
+</h3>
+<div id="valor1">0.0</div>
+<h3>
+    Valor 3
+</h3>
+<div id="valor2">0.0</div>
+<h3>
+    Valor 4
+</h3>
+<div id="valor3">0.0</div>
 
-    <h3>
-        Valor 4
-    </h3>
-    <div id="valor3">0.0</div>
 </html>
+
 <script>
 
-    var socket = io('https://oscweb.herokuapp.com',  { transports : ['websocket'] })
+var audioCtx = new AudioContext();
+function touchStarted() {
+    if(audioCtx.state === 'running') {
+    audioCtx.suspend().then(function() {
+    Tone.start()
+    });
+  } else if(audioCtx.state === 'suspended') {
+    audioCtx.resume().then(function() {
+ 
+    });
+  }
+}
+    var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
     const listeners = socket.listenersAny()
-     socket.on('message',  message => {
-         console.log(message)
+
+    const amSynth0 = new Tone.AMSynth().toDestination();
+    const amSynth1 = new Tone.AMSynth().toDestination();
+    const amSynth2 = new Tone.AMSynth().toDestination();
+    const amSynth3 = new Tone.AMSynth().toDestination();
+
+
+
+// the loops start when the Transport is started
+    let valores = async (channel, value) => {
+            console.log(channel,value)  
+            //const now = Tone.now()
+            // ramp up to 440 bpm over 10 seconds
+            if(channel == 0){
+                const now = Tone.now()
+                amSynth0.volume.value = value/10;
+                amSynth0.harmonicity.value = 0.5;
+                amSynth0.triggerAttackRelease("G1", now + 1);
+
+            }else if(channel == 1){
+
+                const now = Tone.now()
+                amSynth1.volume.value = value/10;
+                amSynth1.harmonicity.value = 0.2;
+                amSynth1.triggerAttackRelease("G1", now + 1);
+               
+            }else if(channel == 2){
+
+                const now = Tone.now()
+                amSynth2.volume.value = value/10;
+                amSynth2.harmonicity.value = 0.5;
+                amSynth2.triggerAttackRelease("C2", now + 1);
+             
+            }else if(channel == 3){
+
+                const now = Tone.now()
+                amSynth3.volume.value = value/10;
+                amSynth3.harmonicity.value = 0.2;
+                amSynth3.triggerAttackRelease("C2", now + 1);
+           
+            }
+           
+    }
+     
+    socket.on('message', message => {
+        console.log(message)
         var json = message['args']
-        if(json != undefined){         
+        if (json != undefined) {
             json = json[0].split('/')
             json.forEach((value, i) => {
-                console.log(value ,i)
-                let ID = "valor"+i
+                console.log(value, i)
+                let ID = "valor" + i
+                valores(i, value);
                 document.getElementById(ID).innerHTML = value
             })
         }
+    })
 
-     })   
-     
 </script>

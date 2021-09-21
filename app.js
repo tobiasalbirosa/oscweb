@@ -10,6 +10,8 @@ const TCPPORT =   process.env.PORT || 3000
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
+app.use("/public", express.static('./public/'));
+
 console.log("THE PORT", TCPPORT)
 //MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
 const osc = require('osc')
@@ -31,5 +33,5 @@ io.on("connect", function (socket) {
   console.log("connected id: ",socket.id)
 })
 io.on('error',function(error) {
-  console.log('error', error);
+  console.log('error', error)
 })
