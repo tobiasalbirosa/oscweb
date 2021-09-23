@@ -1,18 +1,18 @@
 class Particles {
   constructor( _x) {
-    this.cantidad = 100;
+    this.cantidad = 25;
     this.initX = _x;
     this.x = []
     this.y = []
     this.vel = 1
     this.tamX = []
     this.tamY = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       this.x[i] = []
       this.y[i] = []
       this.tamX[i] = []
       this.tamY[i] = []
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < 5; j++) {
         this.x[i][j] = random(_x+width);
         this.y[i][j] = 0;
         this.tamX[i][j] = random(200/40, 200/60);
@@ -43,8 +43,8 @@ class Particles {
   }
    actualizar( velocidad) {
     velocidad = map(velocidad, 0, 10000, .001,25);
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 10; j++) {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
       this.y[i][j]-=velocidad
       this.x[i][j]+=sin(this.y[i][j])
       if (this.y[i][j] < 0) {
