@@ -14,7 +14,6 @@
 </style>
 
 <div class="menu">
-    <button onclick="touchStarted()">Acceder al audio </button>
 
 <h3>
     Valor 1
@@ -52,57 +51,8 @@ function touchStarted() {
     var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
     const listeners = socket.listenersAny()
 
-    var synth = new Tone.Synth().toMaster();
-    var synth1 = new Tone.Synth().toMaster();
-    var synth2 = new Tone.Synth().toMaster();
-    var synth3 = new Tone.Synth().toMaster();
-
-    var chorus = new Tone.Chorus(4, 2.5, 0.5);
-    var synth0 = new Tone.PolySynth(Tone.MonoSynth).connect(chorus);
-
-    var noise = new Tone.Noise("pink").start();
-    var autoFilter = new Tone.AutoFilter({
-	"frequency" : "8m",
-	"min" : 800,
-	"max" : 15000
-}).connect(Tone.Master);
-noise.connect(autoFilter);  
-autoFilter.start()
 // the loops start when the Transport is started
-    let valores = async (channel, value) => {
-            //const now = Tone.now()
-            // ramp up to 440 bpm over 10 seconds
-            if(channel == 0){
-                const now = Tone.now()
-                let Cvalue = constrain(value, -12, -0);
-             //   autoFilter.volume.value = Cvalue;
-               // synth.triggerAttackRelease("C2", now + .001);
-              // synth0.triggerAttackRelease(["C3","E3","G3"],  now + 1);
 
-            }else if(channel == 1){
-
-                const now = Tone.now()
-                let Cvalue = constrain(value,  -6, -0);
-              //  synth1.volume.value = Cvalue;
-               // synth1.triggerAttackRelease("D2", now + .001);
-
-               
-            }else if(channel == 2){
-
-                const now = Tone.now()
-                let Cvalue = constrain(value, -6, -0);
-              //  synth2.volume.value = Cvalue;
-               // synth2.triggerAttackRelease("E2", now + .001);
-             
-            }else if(channel == 3){
-
-                const now = Tone.now()
-                let Cvalue = constrain(value,  -6, -0);
-         //       synth3.volume.value = Cvalue;
-               // synth3.triggerAttackRelease("F2", now + .001);
-           
-            }
-    }
      
     socket.on('message', message => {
 
@@ -111,7 +61,6 @@ autoFilter.start()
             json = json[0].split('/')
             json.forEach((value, i) => {
                 let ID = "valor" + i
-                valores(i, value);
                 document.getElementById(ID).innerHTML = value
             })
         }
