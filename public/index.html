@@ -48,11 +48,13 @@ function touchStarted() {
     });
   }
 }
+const synth = new Tone.Synth().toDestination();
+    
     var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
     const listeners = socket.listenersAny()
 
 // the loops start when the Transport is started
-
+let lastValue;
      
     socket.on('message', message => {
 
@@ -62,8 +64,55 @@ function touchStarted() {
             json.forEach((value, i) => {
                 let ID = "valor" + i
                 document.getElementById(ID).innerHTML = value
+                const now = Tone.now()
+                if(i == 0){
+                    if(value > 0.2 && value != lastValue){
+                            let newValue = convertRange(value, [0, 10000], [0,80]);
+                            let valueDB = convertRange(newValue,  [0, 80], [-24,-6]);
+                            console.log(value," - ",newValue," - ",valueDB);                     
+                            synth.triggerAttack(parseInt(newValue), now)
+                            synth.triggerRelease(now + 1)
+                            lastValue = value
+                        }    
+                }                if(i == 1){
+                    if(value > 0.2 && value != lastValue){
+                            let newValue = convertRange(value, [0, 10000], [0,80]);
+                            let valueDB = convertRange(newValue,  [0, 108], [-24,-6]);
+                            console.log(value," - ",newValue," - ",valueDB);                     
+                            synth.triggerAttack(parseInt(newValue), now)
+                            synth.triggerRelease(now + 1)
+                            lastValue = value
+                        }    
+                }
+                if(i == 2){
+                    if(value > 0.2 && value != lastValue){
+                            let newValue = convertRange(value, [0, 10000], [0,80]);
+                            let valueDB = convertRange(newValue,  [0, 128], [-24,-6]);
+                            console.log(value," - ",newValue," - ",valueDB);                     
+                            synth.triggerAttack(parseInt(newValue), now)
+                            synth.triggerRelease(now + 1)
+                            lastValue = value
+                        }    
+                }
+                if(i == 3){
+                    if(value > 0.2 && value != lastValue){
+                            let newValue = convertRange(value, [0, 10000], [0,80]);
+                            let valueDB = convertRange(newValue,  [0, 144], [-24,-6]);
+                            console.log(value," - ",newValue," - ",valueDB);                     
+                            synth.triggerAttack(parseInt(newValue), now)
+                            synth.triggerRelease(now + 1)
+                            lastValue = value
+                        }    
+                }
+    
             })
         }
     })
+
+    44
+
+function convertRange( value, r1, r2 ) { 
+    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+}
 
 </script>
