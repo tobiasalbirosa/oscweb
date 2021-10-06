@@ -3,116 +3,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.js"
     integrity="sha512-+esjJ8NSEfoB5Sr8R7jTcYxCR1Bd6q9C+WQC0JA2UXVPT8Mlo/TJqqyp0qeeoxFzkAaa8t6tZCHLGmw3oNI2Qg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
-    <script src="public/scripts/sketch.js"></script>
-<style>
-    .menu{
-        position: absolute;
-        z-index: -99;
-        color: rgba(red, green, blue, .5);
-    }
-</style>
-
-<div class="menu">
-
-<h3>
-    Valor 1
-</h3>
-<div id="valor0">0.0</div>
-<h3>
-    Valor 2
-</h3>
-<div id="valor1">0.0</div>
-<h3>
-    Valor 3
-</h3>
-<div id="valor2">0.0</div>
-<h3>
-    Valor 4
-</h3>
-<div id="valor3">0.0</div>
-<div>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+<script src="public/scripts/sketch.js"></script>
+<body>
+    <div style="display : none">
+        <div id="valor0">0.0</div>
+        <div id="valor1">0.0</div>
+        <div id="valor2">0.0</div>
+        <div id="valor3">0.0</div>
+        <div id="valor4">0.0</div>
+        <div id="valor5">0.0</div>
+        <div id="valor6">0.0</div>
+        <div id="valor7">0.0</div>
+    </div>
+</body>
 </html>
-
 <script>
+    var audioCtx = new AudioContext();
+    function touchStarted() {
+        if (audioCtx.state === 'running') {
+            audioCtx.suspend().then(function () {
+                Tone.start()
+            });
+        } else if (audioCtx.state === 'suspended') {
+            audioCtx.resume().then(function () {
 
-var audioCtx = new AudioContext();
-function touchStarted() {
-    if(audioCtx.state === 'running') {
-    audioCtx.suspend().then(function() {
-    Tone.start()
-    });
-  } else if(audioCtx.state === 'suspended') {
-    audioCtx.resume().then(function() {
- 
-    });
-  }
-}
-const synth = new Tone.Synth().toDestination();
-    
-    var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
+            });
+        }
+    }
+    //var socket = io('http://localhost:3000', { transports: ['websocket'] })
+      var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
     const listeners = socket.listenersAny()
-
-// the loops start when the Transport is started
-let lastValue;
-     
+    let lastValue;
     socket.on('message', message => {
-
         var json = message['args']
         if (json != undefined) {
             json = json[0].split('/')
             json.forEach((value, i) => {
-                let ID = "valor" + i
+                let ID = "valor"+i
                 document.getElementById(ID).innerHTML = value
-                const now = Tone.now()
-                if(i == 0){
-                    if(value > 0.2 && value != lastValue){
-                            let newValue = convertRange(value, [0, 10000], [0,80]);
-                            let valueDB = convertRange(newValue,  [0, 80], [-24,-6]);
-                            console.log(value," - ",newValue," - ",valueDB);                     
-                            synth.triggerAttack(parseInt(newValue), now)
-                            synth.triggerRelease(now + 1)
-                            lastValue = value
-                        }    
-                }                if(i == 1){
-                    if(value > 0.2 && value != lastValue){
-                            let newValue = convertRange(value, [0, 10000], [0,80]);
-                            let valueDB = convertRange(newValue,  [0, 108], [-24,-6]);
-                            console.log(value," - ",newValue," - ",valueDB);                     
-                            synth.triggerAttack(parseInt(newValue), now)
-                            synth.triggerRelease(now + 1)
-                            lastValue = value
-                        }    
-                }
-                if(i == 2){
-                    if(value > 0.2 && value != lastValue){
-                            let newValue = convertRange(value, [0, 10000], [0,80]);
-                            let valueDB = convertRange(newValue,  [0, 128], [-24,-6]);
-                            console.log(value," - ",newValue," - ",valueDB);                     
-                            synth.triggerAttack(parseInt(newValue), now)
-                            synth.triggerRelease(now + 1)
-                            lastValue = value
-                        }    
-                }
-                if(i == 3){
-                    if(value > 0.2 && value != lastValue){
-                            let newValue = convertRange(value, [0, 10000], [0,80]);
-                            let valueDB = convertRange(newValue,  [0, 144], [-24,-6]);
-                            console.log(value," - ",newValue," - ",valueDB);                     
-                            synth.triggerAttack(parseInt(newValue), now)
-                            synth.triggerRelease(now + 1)
-                            lastValue = value
-                        }    
-                }
-    
             })
         }
     })
-
-    44
-
-function convertRange( value, r1, r2 ) { 
-    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
-}
-
 </script>
