@@ -3,20 +3,15 @@ require('dotenv').config()
 var socket = require('socket.io')
 const express = require('express')
 const controller = require('./controller/controller')
-//APP
 const app  = express()
 const TCPPORT =   process.env.PORT || 3000
-//MONTAMOS UN PUERTO TCP PARA LOS USUARIOS WEB
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
-app.use("/public", express.static('./public/'));
+app.use("/public", express.static('./public/'))
 
-console.log("THE PORT", TCPPORT)
-//MONTAMOS UN PUERTO UDP PARA LOS MENSAJES OSC
-const osc = require('osc')
 const io = socket(app.listen(TCPPORT))
-//getIPAddresses
+
 io.on("/", (message) => {
   console.log("/: ",message)
 })
