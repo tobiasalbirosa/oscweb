@@ -12,8 +12,8 @@ class Octava {
   
     for(let i = 0; i < 8; i++){
      if( nota == 1){
-      oscillator.freq(freq[i], 0.1);
-      oscilator.amp(amplitud, 0.1);
+     // oscillator.freq(freq[i], 0.1);
+    //  oscilator.amp(amplitud, 0.1);
      }
     }
   }
@@ -58,7 +58,7 @@ class Particles {
   }
   mouseDetector( x,  y, ancho, alto, ID){
     if(mouseX > x && mouseX < x + ancho && mouseY > y && mouseY < y + alto){
-      octava.sonar(ID)
+   //   octava.sonar(ID)
     }
   }
   imagen(x,  y,  tamX,  tamY, velocidad, ID) {
@@ -120,7 +120,7 @@ class Particles {
         height = box.clientHeight
 
     }
-    octava = new Octava();
+   // octava = new Octava();
     particles = new Particles(0)
     particles1 = new Particles(width/8)
     particles2 = new Particles(width/8 * 2)
@@ -163,7 +163,7 @@ class Particles {
     height = box.clientHeight
     for(let i = 0; i < width; i+width/8){
       if(mouseX > i && mouseX < i + width/8){
-        octava.sonar(i)
+     //   octava.sonar(i)
       }
     }
     
