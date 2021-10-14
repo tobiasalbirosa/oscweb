@@ -9,9 +9,7 @@ app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
 app.use("/public", express.static('./public/'))
-
 const io = socket(app.listen(TCPPORT))
-
 io.on("/", (message) => {
   console.log("/: ",message)
 })
