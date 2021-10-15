@@ -33,9 +33,7 @@ class Octava {
 
   }
 
-
   relativeAmplitudeDetector(relativeAmplitude, ID) {
-
 
     if (relativeAmplitude < .3) {
       relativeAmplitude = 0;
@@ -74,9 +72,9 @@ var fullHtml, octava
 class Particles {
   constructor(_x) {
     if (width < 500 || height < 500) {
-      this.cantidad = 5
+      this.cantidad = 3
     } else {
-      this.cantidad = 10
+      this.cantidad = 5
     }
     this.initX = _x
     this.x = []
