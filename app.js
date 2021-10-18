@@ -4,14 +4,12 @@ var socket = require('socket.io')
 const express = require('express')
 const controller = require('./controller/controller')
 const app  = express()
-const TCPPORT =   process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(controller)
 app.use("/public", express.static('./public/'))
-
-const io = socket(app.listen(TCPPORT))
-
+const io = socket(app).listen(PORT)
 io.on("/", (message) => {
   console.log("/: ",message)
 })
