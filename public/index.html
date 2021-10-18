@@ -1,11 +1,4 @@
 <html>
-<!--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.js"
-  integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
--->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link rel="stylesheet" type="text/css" href="public/styles/style.css" />
 
@@ -13,6 +6,9 @@
 <script src="/public/scripts/addons/p5.sound.js"></script>
 <script type="text/javascript" src="/public/scripts/socket.io-client-4.3.0/dist/socket.io.js"></script>
 
+<script src="/public/scripts/sketch.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" type="text/css" href="public/styles/style.css" />
 <script src="/public/scripts/sketch.js"></script>
 
 <body style="margin : 0" oncontextmenu="return false">
@@ -27,9 +23,7 @@
     <div id="valor7">0.0</div>
   </div>
 </body>
-
 </html>
-
 <script>
   document.onkeydown = function (e) {
     if (event.keyCode == 123) {
@@ -51,9 +45,7 @@
   window.addEventListener("orientationchange", function () {
     location.reload()
   }, false)
-
   var t = 0, resizing = false;
-
   function _reload() {
     location.reload()
   }
@@ -64,39 +56,21 @@
     }
     resizing = true
   }, false)
-  var socket = io('https://192.168.0.13:443', { transports: ['websocket'] , rejectUnauthorized: false })
-  //var socket = io('https://192.168.0.244:443', { transports: ['websocket'] , rejectUnauthorized: false })
-  /*var socket = io('https://192.168.43.80:443', { transports: ['websocket'] , rejectUnauthorized: false })*/
- //var socket = io('https://192.168.0.13:443', { transports: ['websocket'] })
-  //var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
+  var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
   const listeners = socket.listenersAny()
   let lastValue;
   socket.on('message', message => {
     var json = message['args']
-      if (json != undefined) {
-          json = json[0].split('/')
-          json.forEach((value, i) => {
-              let ID = "valor"+i
-              if(value > 0.001){
-                  document.getElementById(ID).innerHTML = value
-              }else {
-              document.getElementById(ID).innerHTML = 0
-              }
-          })
-      }
-    /*
-      Object.values(message).forEach(address => {
-      for (let i = 0; i < 8; i++) {
-        if (message.address == "/wimumo001/emg/ch"+str(i+1)) {
-          let ID = "valor"+i
-          if(message.args[0] > 0.001){
-                  document.getElementById(ID).innerHTML = message.args[0]
-              }else {
-              document.getElementById(ID).innerHTML = 0
-              }
+    if (json != undefined) {
+      json = json[0].split('/')
+      json.forEach((value, i) => {
+        let ID = "valor" + i
+        if (value > 0.001) {
+          document.getElementById(ID).innerHTML = value
+        } else {
+          document.getElementById(ID).innerHTML = 0
         }
-      }
-    });
-    */
+      })
+    }
   })
 </script>
