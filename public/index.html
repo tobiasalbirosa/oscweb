@@ -4,12 +4,12 @@
 
 <script src="/public/scripts/p5.js"></script>
 <script src="/public/scripts/addons/p5.sound.js"></script>
-<script type="text/javascript" src="/public/scripts/socket.io-client-4.3.0/dist/socket.io.js"></script>
 
+<script type="text/javascript" src="/public/scripts/socket.io-client-4.3.0/dist/socket.io.js"></script>
 <script src="/public/scripts/sketch.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link rel="stylesheet" type="text/css" href="public/styles/style.css" />
-<script src="/public/scripts/sketch.js"></script>
 
 <body style="margin : 0" oncontextmenu="return false">
   <div style="display : none">
@@ -21,6 +21,7 @@
     <div id="valor5">0.0</div>
     <div id="valor6">0.0</div>
     <div id="valor7">0.0</div>
+    <div id="valor8">0.0</div>
   </div>
 </body>
 </html>
@@ -56,6 +57,7 @@
     }
     resizing = true
   }, false)
+  // var socket = io('https://192.168.0.13:443', { transports: ['websocket']   })
   var socket = io('https://oscweb.herokuapp.com', { transports: ['websocket'] })
   const listeners = socket.listenersAny()
   let lastValue;
