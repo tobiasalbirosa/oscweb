@@ -1,5 +1,5 @@
 'use strict'
-class Particle {
+class ParticleObject {
   constructor(ID,  cant,  range) {
       this.ID = ID;
       this.cant = cant;
@@ -69,7 +69,7 @@ function setup() {
   }
   createCanvas(width, height)
   for(let i = 0; i < 6; i++){
-    particles[i] = new Particle(i, 50, width/6)
+    particles[i] = new ParticleObject(i, 50, width/6)
     samples[i].play()
     samples[i].loop()
   }
