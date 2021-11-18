@@ -43,7 +43,7 @@ class ParticleObject {
 
 
 var samples = []
-var particles = []
+particles = []
 
 function preload() {
   for(let i = 0; i < 6; i++){
