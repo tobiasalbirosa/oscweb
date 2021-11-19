@@ -20,16 +20,16 @@ class Particle {
   actualizar(velocidad) {
  
       for(let i = 0; i < this.cant; i++){
-        this.particleY[i]-=velocidad/10
+        this.particleY[i]-= ((velocidad/10) + 1)
         if (this.particleY[i] <= 0) {
           this.particleY[i] = random(height, height*2);
           this.particleX[i] = random(this.x, this.x + this.range);
         }
         if(this.x <= width/2-20){
-          fill(255,0,0,velocidad)
+          fill(255,0,0,velocidad + 20)
     
         }else{
-          fill(255,255,0,velocidad)
+          fill(255,255,0,velocidad + 20)
     
         }
         ellipse(this.particleX[i], this.particleY[i],velocidad/100,velocidad/100)
