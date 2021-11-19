@@ -32,7 +32,7 @@ class Particle {
           fill(255,255,0,velocidad + 120)
     
         }
-        ellipse(this.particleX[i], this.particleY[i],velocidad/100,velocidad/100)
+        ellipse(this.particleX[i], this.particleY[i],(velocidad/100) + 0.1,(velocidad/100) + 0.1)
 
       }
 
