@@ -26,10 +26,10 @@ class Particle {
           this.particleX[i] = random(this.x, this.x + this.range);
         }
         if(this.x <= width/2-20){
-          fill(255,0,0,velocidad + 20)
+          fill(255,0,0,velocidad + 120)
     
         }else{
-          fill(255,255,0,velocidad + 20)
+          fill(255,255,0,velocidad + 120)
     
         }
         ellipse(this.particleX[i], this.particleY[i],velocidad/100,velocidad/100)
