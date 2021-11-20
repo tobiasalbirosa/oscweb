@@ -43,12 +43,13 @@ class Particle {
       }
       if( i % 2 == 0){
         line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
+        this.lastX = this.particleX[i]
+        this.lastY = this.particleY[i]
       }else{
         noStroke()
         ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.5)
       }
-      this.lastX = this.particleX[i]
-      this.lastY = this.particleY[i]
+
     }
 
 
