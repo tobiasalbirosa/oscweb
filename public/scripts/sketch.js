@@ -28,7 +28,7 @@ class Particle {
     for (let i = 0; i < this.cant; i++) {
       this.particleY[i] -= ((velocidad / 10) + 2)
     
-      strokeWeigth((velocidad / 10) + .3)
+      strokeWeigth((velocidad / 10) + 1)
 
       if (this.particleY[i] <= 0) {
         this.particleY[i] = random(height, height * 2);
