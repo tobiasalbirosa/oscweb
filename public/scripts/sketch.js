@@ -28,24 +28,23 @@ class Particle {
     for (let i = 0; i < this.cant; i++) {
       this.particleY[i] -= ((velocidad / 10) + 2)
     
-      strokeWeigth((velocidad / 10) + 1)
+      strokeWeight((velocidad / 10) + .3)
 
       if (this.particleY[i] <= 0) {
         this.particleY[i] = random(height, height * 2);
         this.particleX[i] = random(this.x, this.x + this.range)
       }
       if (this.x <= width / 2 - 20) {
-        stroke(255,0,0, velocidad + 120)
+        stroke(255,0,0, velocidad + 60)
         fill(255, 0, 0, velocidad + 120)
-
       } else {
-        stroke(255,255,0, velocidad + 120)
+        stroke(255,255,0, velocidad + 60)
         fill(255, 255, 0, velocidad + 120)
-
       }
       if( i % 2 == 0){
         line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
       }else{
+        noStroke()
         ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.5)
       }
       this.lastX = this.particleX[i]
