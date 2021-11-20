@@ -22,7 +22,7 @@ class Particle {
 
   }
 
-  actualizar(velocidad) {
+  actualizar(velocidad, ID) {
     push()
 
     for (let i = 0; i < this.cant; i++) {
@@ -41,13 +41,12 @@ class Particle {
         stroke(255,255,0, velocidad + 60)
         fill(255, 255, 0, velocidad + 120)
       }
-      if( i == 0  || i ==  2 || i ==  4 || i == 6){
+      if(ID % 2 == 0){
         line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
         this.lastX = this.particleX[i]
         this.lastY = this.particleY[i]
       }else{
-        noStroke()
-        ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.5)
+        ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.8)
       }
 
     }
@@ -111,7 +110,7 @@ function draw() {
   for (let i = 0; i < 6; i++) {
     valor = document.getElementById("valor" + i).innerHTML
     push()
-    particles[i].actualizar(valor)
+    particles[i].actualizar(valor, i)
     pop()
 
     push()
@@ -125,7 +124,7 @@ function draw() {
     }
     ellipse(i * width / 6 + width / 12, height / 2, valor, valor)
     pop()
-    valor = map(valor, 0, 127, 0, 1)
-    samples[i].amp(constrain(valor, 0, 1))
+    valor = map(valor, 0, 127, 0, .5)
+    samples[i].amp(constrain(valor, 0, .5))
   }
 }
