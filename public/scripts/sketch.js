@@ -41,16 +41,20 @@ class Particle {
         stroke(255,255,0, velocidad + 60)
         fill(255, 255, 0, velocidad + 120)
       }
-      if(ID % 2 == 0){
+      if(ID % 2 == 0 && this.x <= width / 2 - 20){
         line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
         this.lastX = this.particleX[i]
         this.lastY = this.particleY[i]
-      }else{
+      } else if(ID % 2 != 0 && this.x > width / 2 - 20){
+        line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
+        this.lastX = this.particleX[i]
+        this.lastY = this.particleY[i]
+      }
+      else {
         ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.8)
       }
 
     }
-
 
     pop()
   }
