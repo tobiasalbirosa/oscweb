@@ -25,7 +25,7 @@ class Particle {
   actualizar(velocidad) {
 
     for (let i = 0; i < this.cant; i++) {
-      this.particleY[i] -= ((velocidad / 10) + 5)
+      this.particleY[i] -= ((velocidad / 10) + 2)
       if (this.particleY[i] <= 0) {
         this.particleY[i] = random(height, height * 2);
         this.particleX[i] = random(this.x, this.x + this.range)
@@ -35,15 +35,14 @@ class Particle {
         fill(255, 0, 0, velocidad + 120)
 
       } else {
-        stroke(0,255,0, velocidad + 120)
+        stroke(255,255,0, velocidad + 120)
         fill(255, 255, 0, velocidad + 120)
 
       }
-      if(i %2 != 0){
-      ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.5)
-      }else{
-
+      if(i %2 == 0){
         line(this.particleX[i], this.particleY[i], this.lastX, this.lastY)
+      }else{
+        ellipse(this.particleX[i], this.particleY[i], (velocidad / 100) + 0.5, (velocidad / 100) + 0.5)
       }
       this.lastX = this.particleX[i]
       this.lastY = this.particleY[i]
