@@ -66,7 +66,7 @@ var samples = []
 var particles = []
 
 function preload() {
-  for (let i = 1; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     samples[i] = loadSound('../public/assets/' + i + '.wav')
   }
 }
@@ -112,7 +112,7 @@ function touchStarted() {
 let valor
 function draw() {
   background(0, 120)
-  for (let i = 1; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     valor = document.getElementById("valor" + i).innerHTML
     push()
     particles[i].actualizar(valor, i)
