@@ -87,7 +87,7 @@ function setup() {
     height = fullHtml.clientHeight
   }
   createCanvas(width, height)
-  for (let i = 1; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     particles[i] = new Particle(i, 50, width / 6)
     samples[i].play()
     samples[i].loop()
@@ -120,12 +120,12 @@ function draw() {
 
     push()
     noStroke()
-    if (i * width / 12 <= width / 2) {
+    if (i * width / 6 + width / 12 <= width / 2) {
       fill(255, 255, 0, valor)
     } else {
       fill(255, 0, 0, valor)
     }
-    ellipse(i * width / 12, height / 2, valor, valor)
+    ellipse(i * width / 6 + width / 12, height / 2, valor, valor)
     pop()
     valor = map(valor, 0, 127, 0, .5)
     samples[i].amp(constrain(valor, 0, .5))
