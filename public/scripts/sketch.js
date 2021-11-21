@@ -122,10 +122,8 @@ function draw() {
     noStroke()
     if (i * width / 6 + width / 12 <= width / 2) {
       fill(255, 255, 0, valor)
-
     } else {
       fill(255, 0, 0, valor)
-
     }
     ellipse(i * width / 6 + width / 12, height / 2, valor, valor)
     pop()
