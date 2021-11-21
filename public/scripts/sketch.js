@@ -66,7 +66,7 @@ var samples = []
 var particles = []
 
 function preload() {
-  for (let i = 0; i < 6; i++) {
+  for (let i = 1; i < 7; i++) {
     samples[i] = loadSound('../public/assets/' + i + '.wav')
   }
 }
@@ -87,7 +87,7 @@ function setup() {
     height = fullHtml.clientHeight
   }
   createCanvas(width, height)
-  for (let i = 0; i < 6; i++) {
+  for (let i = 1; i < 7; i++) {
     particles[i] = new Particle(i, 50, width / 6)
     samples[i].play()
     samples[i].loop()
