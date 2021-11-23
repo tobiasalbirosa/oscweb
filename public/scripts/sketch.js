@@ -113,7 +113,7 @@ let valor
 function draw() {
   background(0, 120)
   for (let i = 0; i < 6; i++) {
-    valor = document.getElementById("valor" + i).innerHTML
+    valor = document.getElementById("valor" + i+1).innerHTML
     push()
     particles[i].actualizar(valor, i)
     pop()
